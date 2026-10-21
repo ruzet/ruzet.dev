@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 .tab {
     overflow: hidden;
     border-bottom: 2px solid white;
