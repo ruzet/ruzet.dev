@@ -4,13 +4,20 @@
 <title>ruzet's website</title>
 
 <head>
-    <script>
-        function OpenTab(Event, TabName) {
-            var i, tabcontent, tablinks;
+    <script defer>
+        function OpenTab(Event, TabName, Tab1) {
+            var i, tabcontent1, tabcontent2, tablinks;
 
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+            if (Tab1) {
+                tabcontent1 = document.getElementsByClassName("tabcontent1");
+                for (i = 0; i < tabcontent1.length; i++) {
+                    tabcontent1[i].style.display = "none";
+                }
+            } else {
+                tabcontent2 = document.getElementsByClassName("tabcontent2");
+                for (i = 0; i < tabcontent2.length; i++) {
+                    tabcontent2[i].style.display = "none";
+                }
             }
 
             tablinks = document.getElementsByClassName("tablinks");
@@ -26,16 +33,14 @@
 </head>
 
 <div class="tab">
-    <button id="default" class="tablinks" onclick="OpenTab(event, 'home')"> home </button>
-    <button class="tablinks" onclick="OpenTab(event, 'whatido')"> what i do </button>
-    <button class="tablinks" onclick="OpenTab(event, 'mywork')"> my work </button>
+    <button id="default1" class="tablinks" onclick="OpenTab(event, 'home', true)"> home </button>
+    <button class="tablinks" onclick="OpenTab(event, 'whatido', true)"> what i do </button>
+    <button class="tablinks" onclick="OpenTab(event, 'mywork', true)"> my work </button>
+    <button class="tablinks" onclick="OpenTab(event, 'contacts', true)"> contacts </button>
 </div>
 
-<script>
-    document.getElementById("default").click();
-</script>
+<div id="home" class="tabcontent1">
 
-<div id="home" class="tabcontent">
     <body>
         <h1>
             welcome to my website
@@ -61,18 +66,63 @@
         </p>
         <h4>DONT ask me to work for you if the <u>thingie</u> at the top isnt green, its not common it will be either
         </h4>
-        <hr id="hr">
-        <h3> links </h3>
-        <h4>
-            - <a href="https://youtube.com/@ruzetroblox"> youtube </a> <br>
-            - <a href="https://github.com/ruzet"> github </a> <br>
-            - <a href="http://ruzet.itch.io/"> itch io </a> <br>
-        </h4>
     </body>
 </div>
 
-<div id="whatido" class="tabcontent">
+<div id="whatido" class="tabcontent1">
     <h2>what i do</h2>
+    <p>
+        here are the things i am hirable for (if the <u>thingie</u> is green of course) <br>
+        i can: <br>
+        - script (roblox) <br>
+        - script (godot, meh) <br>
+        - do ui (meh) <br>
+        - do gfx (horrible) <br>
+
+        my ui/gfx probably wont improve but hopefully scripting can get better over the course of terra
+    </p>
 </div>
+
+<div id="mywork" class="tabcontent1">
+    <h2>my work</h2>
+    <p>
+        here's my work for each of the things i do (nothing yet until i add stuff)
+    <div class="tab2">
+        <button id="default2" class="tablinks" onclick="OpenTab(event, 'robloxscripting')"> scripting (roblox/luau)
+        </button>
+        <button class="tablinks" onclick="OpenTab(event, 'godotscripting')"> scripting (godot/gdscript) </button>
+        <button class="tablinks" onclick="OpenTab(event, 'ui')"> ui </button>
+        <button class="tablinks" onclick="OpenTab(event, 'gfx')"> gfx </button>
+    </div>
+    <hr>
+    <div id="robloxscripting" class="tabcontent2">
+        roblox stuff
+    </div>
+    <div id="godotscripting" class="tabcontent2">
+        godot stuff
+    </div>
+    <div id="ui" class="tabcontent2">
+        ui stuff
+    </div>
+    <div id="gfx" class="tabcontent2">
+        gfx stuff
+    </div>
+    </p>
+</div>
+
+<div id="contacts" class="tabcontent1">
+    <h3> contacts </h3>
+    <p>heres some links you can use to see stuff and what not</p>
+    <h4>
+        - <a href="https://youtube.com/@ruzetroblox"> youtube </a> <br>
+        - <a href="https://github.com/ruzet"> github </a> <br>
+        - <a href="http://ruzet.itch.io/"> itch io </a> <br>
+    </h4>
+</div>
+
+<script defer>
+    document.getElementById("default1").click();
+    document.getElementById("default2").click();
+</script>
 
 </html>
