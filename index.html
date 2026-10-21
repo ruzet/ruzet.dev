@@ -1,8 +1,41 @@
 <!DOCTYPE html>
 
 <html>
-    <title>ruzet's website</title>
-    <head><link rel="stylesheet", href="index.css"></head>
+<title>ruzet's website</title>
+
+<head>
+    <script>
+        function OpenTab(Event, TabName) {
+            var i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(TabName).style.display = "block"
+            Event.currentTarget.className += " active";
+        }
+    </script>
+    <link rel="stylesheet" , href="index.css">
+</head>
+
+<div class="tab">
+    <button id="default" class="tablinks" onclick="OpenTab(event, 'home')"> home </button>
+    <button class="tablinks" onclick="OpenTab(event, 'whatido')"> what i do </button>
+    <button class="tablinks" onclick="OpenTab(event, 'mywork')"> my work </button>
+</div>
+
+<script>
+    document.getElementById("default").click();
+</script>
+
+<div id="home" class="tabcontent">
     <body>
         <h1>
             welcome to my website
@@ -13,40 +46,33 @@
             this is just for me to show off work for whatever i make online <br>
             made for hackclub's terra but will probably be updated afterwards
         </h2>
-        <hr>
+        <hr id="hr">
         <h3> about me </h3>
         <p>
             im a 15 year old scripter in high school, and i usually make my projects in roblox <br>
-            my main roblox project is "SKEDADDLE" but im not doing too much on it right now because im working on terra <br>
-            i've learned a *bit* of gdscript and a **tiny bit** of c# and and im also learning html, css, and js to make this website
+            my main roblox project is "SKEDADDLE" but im not doing too much on it right now because im working on terra
+            <br>
+            i've learned a *bit* of gdscript and a **tiny bit** of c# and and im also learning html, css, and js to make
+            this website
             i also do ui and gfx work sometimes but its not common <br>
 
             i also play tennis and the clarinet but eh
-            <hr>
+            <hr id="hr">
         </p>
-            <h4>DONT ask me to work for you if the <u>thingie</u> at the top isnt green, its not common it will be either</h4>
-        <hr>
-        <h3> what i do </h3>
-        <p>
-            i can do (in order of greatest to least):
-            - scripting (luau, gdscript) <br>
-            - ui <br>
-            - gfx <br>
-            - music production (usually just for me though) <br>
-        </p>
-        <hr>
-        <h3> my work </h3>
-        <button id="robloxscripting"> scripting (roblox/luau) </button>
-        <button id="csharpscripting"> scripting (c#) </button>
-        <button id="gdscripting"> scripting (gdscript) </button>
-        <button id="ui"> ui </button>
-        <button id="gfx"> gfx </button>
-        <hr>
+        <h4>DONT ask me to work for you if the <u>thingie</u> at the top isnt green, its not common it will be either
+        </h4>
+        <hr id="hr">
         <h3> links </h3>
-        <h4> 
+        <h4>
             - <a href="https://youtube.com/@ruzetroblox"> youtube </a> <br>
             - <a href="https://github.com/ruzet"> github </a> <br>
             - <a href="http://ruzet.itch.io/"> itch io </a> <br>
         </h4>
     </body>
+</div>
+
+<div id="whatido" class="tabcontent">
+    <h2>what i do</h2>
+</div>
+
 </html>
