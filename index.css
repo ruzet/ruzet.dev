@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-.tablinks {
+.TabLinks {
     background-color: rgb(14, 132, 235);
     color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -10,10 +10,15 @@
     border-width: 3px;
     border-style: solid;
     transition: background-color 0.5s ease;
+    position: relative;
 }
 
-.tablinks:hover {
+.TabLinks:hover {
     background-color: rgb(64, 166, 255);
+}
+
+.blanklinespace {
+    visibility: hidden;
 }
 
 hr {
