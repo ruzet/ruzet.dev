@@ -5,6 +5,13 @@
 
 <head>
     <script>
+        var i, Buttons;
+
+        Buttons = document.getElementsByClassName("TabLinks");
+            for (i = 0; i < Buttons.length; i++) {
+                Buttons[i].style.transform = `rotate(${20}deg)` /*(Math.random() * 60) - 30 + "deg"*/
+            }
+
         function ButtonFlyLoop(timestamp) {
             var i, Buttons;
 
@@ -20,6 +27,10 @@
 
                 if (Buttons[i].dataset.lastTimestamp === undefined) {
                     Buttons[i].dataset.lastTimestamp = timestamp
+                }
+
+                if (Buttons[i].dataset.SpeedDivision === undefined) {
+                    Buttons[i].dataset.SpeedDivision = Math.floor(Math.random() * (1000 - 500 + 1)) + 500;
                 }
 
                 if (Buttons[i].dataset.timeElapsed === undefined) {
@@ -41,7 +52,7 @@
                 if (Buttons[i].dataset.hovering === "false") {Buttons[i].dataset.timeElapsed = Number(Buttons[i].dataset.timeElapsed) + Number(timestamp - Buttons[i].dataset.lastTimestamp);}
                 Buttons[i].dataset.lastTimestamp = Number(timestamp);
 
-                var NextY = Math.sin(Buttons[i].dataset.timeElapsed / 800 + Number(RandomOffset)) * 10;
+                var NextY = Math.sin(Buttons[i].dataset.timeElapsed / Buttons[i].dataset.SpeedDivision + Number(RandomOffset)) * 10;
                 Buttons[i].style.top = (10 + NextY) + "px";
             }
 

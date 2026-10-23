@@ -4,16 +4,20 @@
     background-color: rgb(14, 132, 235);
     color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: large;
+    font-size: 1rem;
     border-color: rgb(223, 240, 255);
     border-radius: 10px;
     border-width: 3px;
     border-style: solid;
+    rotate: 0deg;
     transition: background-color 0.5s ease;
+    transition: rotate 0.2s ease-out;
+    transition: font-size 0.5s ease-out;
     position: relative;
 }
 
 .TabLinks:hover {
+    font-size: 1.1rem;
     background-color: rgb(64, 166, 255);
 }
 
