@@ -5,13 +5,6 @@
 
 <head>
     <script>
-        var i, Buttons;
-
-        Buttons = document.getElementsByClassName("TabLinks");
-            for (i = 0; i < Buttons.length; i++) {
-                Buttons[i].style.transform = `rotate(${20}deg)` /*(Math.random() * 60) - 30 + "deg"*/
-            }
-
         function ButtonFlyLoop(timestamp) {
             var i, Buttons;
 
@@ -30,7 +23,7 @@
                 }
 
                 if (Buttons[i].dataset.SpeedDivision === undefined) {
-                    Buttons[i].dataset.SpeedDivision = Math.floor(Math.random() * (1000 - 500 + 1)) + 500;
+                    Buttons[i].dataset.SpeedDivision = Math.floor(Math.random() * (1250 - 500 + 1)) + 500;
                 }
 
                 if (Buttons[i].dataset.timeElapsed === undefined) {
@@ -52,8 +45,8 @@
                 if (Buttons[i].dataset.hovering === "false") {Buttons[i].dataset.timeElapsed = Number(Buttons[i].dataset.timeElapsed) + Number(timestamp - Buttons[i].dataset.lastTimestamp);}
                 Buttons[i].dataset.lastTimestamp = Number(timestamp);
 
-                var NextY = Math.sin(Buttons[i].dataset.timeElapsed / Buttons[i].dataset.SpeedDivision + Number(RandomOffset)) * 10;
-                Buttons[i].style.top = (10 + NextY) + "px";
+                var NextY = Math.sin(Buttons[i].dataset.timeElapsed / Buttons[i].dataset.SpeedDivision + Number(RandomOffset)) * 20;
+                Buttons[i].style.top = (25 + NextY) + "px";
             }
 
             requestAnimationFrame(ButtonFlyLoop);
@@ -132,9 +125,8 @@
         - script (roblox) <br>
         - script (godot, meh) <br>
         - do ui (meh) <br>
-        - do gfx (horrible) <br>
 
-        my ui/gfx probably wont improve but hopefully scripting can get better over the course of terra
+        my ui probably wont improve but hopefully scripting can get better over the course of terra
     </p>
 </div>
 
@@ -147,25 +139,42 @@
         </button>
         <button class="TabLinks" onclick="OpenTab(event, 'godotscripting')"> scripting (godot/gdscript) </button>
         <button class="TabLinks" onclick="OpenTab(event, 'ui')"> ui </button>
-        <button class="TabLinks" onclick="OpenTab(event, 'gfx')"> gfx </button>
     </div>
     <hr class="blanklinespace">
     <hr>
     <div id="robloxscripting" class="TabContent2">
-        roblox stuff
+        <h2>roblox stuff</h2>
+        <h4>full games:</h4>
+        <video width="384" height="216" controls>
+            <source src="assets/videos/skedaddle.mp4" type="video/mp4">
+        </video>
+        <video width="384" height="216" controls>
+            <source src="assets/videos/snowballshowdown.mp4" type="video/mp4">
+        </video>
+        <h4>standalone systems:</h4>
+        <video class="video" width="384" height="216" controls>
+            <source src="assets/videos/autofill.mp4" type="video/mp4">
+        </video>
+        <video class="video" width="384" height="216" controls>
+            <source src="assets/videos/dialogue.mp4" type="video/mp4">
+        </video>
+        <video class="video" width="384" height="216" controls>
+            <source src="assets/videos/hitbox.mp4" type="video/mp4">
+        </video>
     </div>
     <div id="godotscripting" class="TabContent2">
-        godot stuff
+        godot stuff<br>
+        <iframe width="552" frameborder="0" height="167" src="https://itch.io/embed/5183336"><a href="https://ruzet.itch.io/smash-ultimate-movement-recreation">Smash Ultimate Movement Recreation by Ruzet</a></iframe> <br>
+        <iframe width="552" height="167" frameborder="0" src="https://itch.io/embed/5139953"><a href="https://ruzet.itch.io/karate-man-browser">Karate Man Browser by Ruzet</a></iframe>
     </div>
     <div id="ui" class="TabContent2">
         ui stuff
-    </div>
-    <div id="gfx" class="TabContent2">
-        gfx stuff
+        <img class="image" src="assets/images/skedaddle.png">
+        <img class="image" src="assets/images/otherui.png">
     </div>
     </p>
 </div>
-
+ 
 <div id="contacts" class="TabContent1">
     <h3> contacts </h3>
     <p>heres some links you can use to see stuff and what not</p>
@@ -174,6 +183,30 @@
         - <a href="https://github.com/ruzet"> github </a> <br>
         - <a href="http://ruzet.itch.io/"> itch io </a> <br>
     </h4>
+</div>
+
+<div class="bottombar">
+    <p id="time", class="time"> 00:00:00</p>
+    <script>
+        var Weekdays = Array(7)
+        Weekdays[0] = "Sunday"
+        Weekdays[1] = "Monday"
+        Weekdays[2] = "Tuesday"
+        Weekdays[3] = "Wednesday"
+        Weekdays[4] = "Thursday"
+        Weekdays[5] = "Friday"
+        Weekdays[6] = "Saturday"
+
+        function Update() {
+            var Text = document.getElementById("time")
+            var NewDate = new Date()
+            var MonthName = NewDate.toLocaleString('default', { month: 'long' })
+            Text.textContent = Weekdays[NewDate.getDay()] + ", " +  MonthName + " " + NewDate.getDate() + ", " + NewDate.toLocaleTimeString()
+            requestAnimationFrame(Update)
+        }
+
+        requestAnimationFrame(Update)
+    </script>
 </div>
 
 <script defer>
