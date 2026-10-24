@@ -1,217 +1,290 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html>
-<title>ruzet's website</title>
+    <title>ruzet's website</title>
 
-<head>
-    <script>
-        function ButtonFlyLoop(timestamp) {
-            var i, Buttons;
+    <head>
+        <script>
+            function ButtonFlyLoop(timestamp) {
+                var i, Buttons;
 
-            Buttons = document.getElementsByClassName("TabLinks");
-            for (i = 0; i < Buttons.length; i++) {
-                timestamp = Number(Math.floor(timestamp))
-                var RandomOffset = Buttons[i].dataset.randomOffset
+                Buttons = document.getElementsByClassName("TabLinks");
+                for (i = 0; i < Buttons.length; i++) {
+                    timestamp = Number(Math.floor(timestamp));
+                    var RandomOffset = Buttons[i].dataset.randomOffset;
 
-                if (RandomOffset === undefined) {
-                    Buttons[i].dataset.randomOffset = Buttons[i].style.top + Math.random() * Math.PI * 2;
-                    Buttons[i].style.randomOffset = RandomOffset
+                    if (RandomOffset === undefined) {
+                        Buttons[i].dataset.randomOffset =
+                            Buttons[i].style.top + Math.random() * Math.PI * 2;
+                        Buttons[i].style.randomOffset = RandomOffset;
+                    }
+
+                    if (Buttons[i].dataset.lastTimestamp === undefined) {
+                        Buttons[i].dataset.lastTimestamp = timestamp;
+                    }
+
+                    if (Buttons[i].dataset.SpeedDivision === undefined) {
+                        Buttons[i].dataset.SpeedDivision =
+                            Math.floor(Math.random() * (1250 - 500 + 1)) + 500;
+                    }
+
+                    if (Buttons[i].dataset.timeElapsed === undefined) {
+                        Buttons[i].dataset.timeElapsed = 0;
+                    }
+
+                    if (Buttons[i].dataset.hovering === undefined) {
+                        Buttons[i].dataset.hovering = "false";
+
+                        Buttons[i].addEventListener("mouseenter", function () {
+                            this.dataset.hovering = "true";
+                        });
+
+                        Buttons[i].addEventListener("mouseleave", function () {
+                            this.dataset.hovering = "false";
+                        });
+                    }
+
+                    if (Buttons[i].dataset.hovering === "false") {
+                        Buttons[i].dataset.timeElapsed =
+                            Number(Buttons[i].dataset.timeElapsed) +
+                            Number(
+                                timestamp - Buttons[i].dataset.lastTimestamp,
+                            );
+                    }
+                    Buttons[i].dataset.lastTimestamp = Number(timestamp);
+
+                    var NextY =
+                        Math.sin(
+                            Buttons[i].dataset.timeElapsed /
+                                Buttons[i].dataset.SpeedDivision +
+                                Number(RandomOffset),
+                        ) * 20;
+                    Buttons[i].style.top = 25 + NextY + "px";
                 }
 
-                if (Buttons[i].dataset.lastTimestamp === undefined) {
-                    Buttons[i].dataset.lastTimestamp = timestamp
-                }
-
-                if (Buttons[i].dataset.SpeedDivision === undefined) {
-                    Buttons[i].dataset.SpeedDivision = Math.floor(Math.random() * (1250 - 500 + 1)) + 500;
-                }
-
-                if (Buttons[i].dataset.timeElapsed === undefined) {
-                    Buttons[i].dataset.timeElapsed = 0
-                }
-
-                if (Buttons[i].dataset.hovering === undefined) {
-                    Buttons[i].dataset.hovering = "false";
-
-                    Buttons[i].addEventListener("mouseenter", function() {
-                        this.dataset.hovering = "true";
-                    });
-
-                    Buttons[i].addEventListener("mouseleave", function() {
-                        this.dataset.hovering = "false";
-                    });
-                }
-
-                if (Buttons[i].dataset.hovering === "false") {Buttons[i].dataset.timeElapsed = Number(Buttons[i].dataset.timeElapsed) + Number(timestamp - Buttons[i].dataset.lastTimestamp);}
-                Buttons[i].dataset.lastTimestamp = Number(timestamp);
-
-                var NextY = Math.sin(Buttons[i].dataset.timeElapsed / Buttons[i].dataset.SpeedDivision + Number(RandomOffset)) * 20;
-                Buttons[i].style.top = (25 + NextY) + "px";
+                requestAnimationFrame(ButtonFlyLoop);
             }
 
             requestAnimationFrame(ButtonFlyLoop);
-        }
+        </script>
+        <script defer>
+            function OpenTab(Event, TabName, Tab1) {
+                var i, TabContent1, TabContent2, TabLinks;
 
-        requestAnimationFrame(ButtonFlyLoop);
-    </script>
-    <script defer>
-        function OpenTab(Event, TabName, Tab1) {
-            var i, TabContent1, TabContent2, TabLinks;
-
-            if (Tab1) {
-                TabContent1 = document.getElementsByClassName("TabContent1");
-                for (i = 0; i < TabContent1.length; i++) {
-                    TabContent1[i].style.display = "none";
+                if (Tab1) {
+                    TabContent1 =
+                        document.getElementsByClassName("TabContent1");
+                    for (i = 0; i < TabContent1.length; i++) {
+                        TabContent1[i].style.display = "none";
+                    }
+                } else {
+                    TabContent2 =
+                        document.getElementsByClassName("TabContent2");
+                    for (i = 0; i < TabContent2.length; i++) {
+                        TabContent2[i].style.display = "none";
+                    }
                 }
-            } else {
-                TabContent2 = document.getElementsByClassName("TabContent2");
-                for (i = 0; i < TabContent2.length; i++) {
-                    TabContent2[i].style.display = "none";
+
+                TabLinks = document.getElementsByClassName("TabLinks");
+                for (i = 0; i < TabLinks.length; i++) {
+                    TabLinks[i].className = TabLinks[i].className.replace(
+                        " active",
+                        "",
+                    );
                 }
+
+                document.getElementById(TabName).style.display = "block";
+                Event.currentTarget.className += " active";
             }
+        </script>
+        <link rel="stylesheet" , href="index.css" />
+    </head>
 
-            TabLinks = document.getElementsByClassName("TabLinks");
-            for (i = 0; i < TabLinks.length; i++) {
-                TabLinks[i].className = TabLinks[i].className.replace(" active", "");
-            }
-
-            document.getElementById(TabName).style.display = "block"
-            Event.currentTarget.className += " active";
-        }
-    </script>
-    <link rel="stylesheet" , href="index.css">
-</head>
-
-<div class="tab">
-    <button id="default1" class="TabLinks" onclick="OpenTab(event, 'home', true)"> home </button>
-    <button class="TabLinks" onclick="OpenTab(event, 'whatido', true)"> what i do </button>
-    <button class="TabLinks" onclick="OpenTab(event, 'mywork', true)"> my work </button>
-    <button class="TabLinks" onclick="OpenTab(event, 'contacts', true)"> contacts </button>
-</div>
-
-<div id="home" class="TabContent1">
-    <body>
-        <h1>
-            welcome to my website
-        </h1>
-        <h1 style="color:red"> @_@ </h1>
-        <h2> ^^^ thingie </h2>
-        <h2>
-            this is just for me to show off work for whatever i make online <br>
-            made for hackclub's terra but will probably be updated afterwards
-        </h2>
-        <hr>
-        <h3> about me </h3>
-        <p>
-            im a 15 year old scripter in high school, and i usually make my projects in roblox <br>
-            my main roblox project is "SKEDADDLE" but im not doing too much on it right now because im working on terra
-            <br>
-            i've learned a *bit* of gdscript and a **tiny bit** of c# and and im also learning html, css, and js to make
-            this website
-            i also do ui and gfx work sometimes but its not common <br>
-
-            i also play tennis and the clarinet but eh
-            <hr>
-        </p>
-        <h2>DONT ask me to work for you if the <u>thingie</u> at the top isnt green, its not common it will be either</h2>
-    </body>
-</div>
-
-<div id="whatido" class="TabContent1">
-    <h2>what i do</h2>
-    <p>
-        here are the things i am hirable for (if the <u>thingie</u> is green of course) <br>
-        i can: <br>
-        - script (roblox) <br>
-        - script (godot, meh) <br>
-        - do ui (meh) <br>
-
-        my ui probably wont improve but hopefully scripting can get better over the course of terra
-    </p>
-</div>
-
-<div id="mywork" class="TabContent1">
-    <h2>my work</h2>
-    <p>
-        here's my work for each of the things i do (nothing yet until i add stuff)
-    <div class="tab2">
-        <button id="default2" class="TabLinks" onclick="OpenTab(event, 'robloxscripting')"> scripting (roblox/luau)
+    <div class="tab">
+        <button
+            id="default1"
+            class="TabLinks"
+            onclick="OpenTab(event, 'home', true)"
+        >
+            home
         </button>
-        <button class="TabLinks" onclick="OpenTab(event, 'godotscripting')"> scripting (godot/gdscript) </button>
-        <button class="TabLinks" onclick="OpenTab(event, 'ui')"> ui </button>
+        <button class="TabLinks" onclick="OpenTab(event, 'whatido', true)">
+            what i do
+        </button>
+        <button class="TabLinks" onclick="OpenTab(event, 'mywork', true)">
+            my work
+        </button>
+        <button class="TabLinks" onclick="OpenTab(event, 'contacts', true)">
+            contacts
+        </button>
     </div>
-    <hr class="blanklinespace">
-    <hr>
-    <div id="robloxscripting" class="TabContent2">
-        <h2>roblox stuff</h2>
-        <h4>full games:</h4>
-        <video width="384" height="216" controls>
-            <source src="assets/videos/skedaddle.mp4" type="video/mp4">
-        </video>
-        <video width="384" height="216" controls>
-            <source src="assets/videos/snowballshowdown.mp4" type="video/mp4">
-        </video>
-        <h4>standalone systems:</h4>
-        <video class="video" width="384" height="216" controls>
-            <source src="assets/videos/autofill.mp4" type="video/mp4">
-        </video>
-        <video class="video" width="384" height="216" controls>
-            <source src="assets/videos/dialogue.mp4" type="video/mp4">
-        </video>
-        <video class="video" width="384" height="216" controls>
-            <source src="assets/videos/hitbox.mp4" type="video/mp4">
-        </video>
-    </div>
-    <div id="godotscripting" class="TabContent2">
-        godot stuff<br>
-        <iframe width="552" frameborder="0" height="167" src="https://itch.io/embed/5183336"><a href="https://ruzet.itch.io/smash-ultimate-movement-recreation">Smash Ultimate Movement Recreation by Ruzet</a></iframe> <br>
-        <iframe width="552" height="167" frameborder="0" src="https://itch.io/embed/5139953"><a href="https://ruzet.itch.io/karate-man-browser">Karate Man Browser by Ruzet</a></iframe>
-    </div>
-    <div id="ui" class="TabContent2">
-        ui stuff
-        <img class="image" src="assets/images/skedaddle.png">
-        <img class="image" src="assets/images/otherui.png">
-    </div>
-    </p>
-</div>
- 
-<div id="contacts" class="TabContent1">
-    <h3> contacts </h3>
-    <p>heres some links you can use to see stuff and what not</p>
-    <h4>
-        - <a href="https://youtube.com/@ruzetroblox"> youtube </a> <br>
-        - <a href="https://github.com/ruzet"> github </a> <br>
-        - <a href="http://ruzet.itch.io/"> itch io </a> <br>
-    </h4>
-</div>
 
-<div class="bottombar">
-    <p id="time", class="time"> 00:00:00</p>
-    <script>
-        var Weekdays = Array(7)
-        Weekdays[0] = "Sunday"
-        Weekdays[1] = "Monday"
-        Weekdays[2] = "Tuesday"
-        Weekdays[3] = "Wednesday"
-        Weekdays[4] = "Thursday"
-        Weekdays[5] = "Friday"
-        Weekdays[6] = "Saturday"
+    <div id="home" class="TabContent1">
+        <body>
+            <h1>welcome to my website</h1>
+            <h1 style="color: red">(-_-)</h1>
+            <h2>^^^ thingie</h2>
+            <h3>
+                this is just for me to show off work for whatever i make online
+                <br />
+                made for hackclub's terra but will probably be updated
+                afterwards
+            </h3>
+            <hr />
+            <h3>about me</h3>
+            <p>
+                im a 15 year old scripter in high school, and i usually make my
+                projects in roblox <br />
+                my main roblox project is "SKEDADDLE" but im not doing too much
+                on it right now because im working on terra
+                <br />
+                i've learned a *bit* of gdscript and a **tiny bit** of c# and
+                and im also learning html, css, and js to make this website i
+                also do ui and gfx work sometimes but its not common <br />
 
-        function Update() {
-            var Text = document.getElementById("time")
-            var NewDate = new Date()
-            var MonthName = NewDate.toLocaleString('default', { month: 'long' })
-            Text.textContent = Weekdays[NewDate.getDay()] + ", " +  MonthName + " " + NewDate.getDate() + ", " + NewDate.toLocaleTimeString()
-            requestAnimationFrame(Update)
-        }
+                i also play tennis and the clarinet but eh
+            </p>
+            <hr />
+            <h2>
+                <i><u>DONT</u></i
+                >&emsp13;ask me to work for you if the <u>thingie</u> at the top
+                isnt green, its not common it will be either
+            </h2>
+        </body>
+    </div>
 
-        requestAnimationFrame(Update)
+    <div id="whatido" class="TabContent1">
+        <h2>what i do</h2>
+        <p>
+            here are the things i am hirable for (if the <u>thingie</u> is green
+            of course) <br />
+            i can: <br />
+            - script (roblox) <br />
+            - script (godot, meh) <br />
+            - do ui (meh) <br />
+
+            my ui probably wont improve but hopefully scripting can get better
+            over the course of terra
+        </p>
+    </div>
+
+    <div id="mywork" class="TabContent1">
+        <h2>my work</h2>
+        here's my work for each of the things i do (nothing yet until i add
+        stuff)
+        <div class="tab2">
+            <button
+                id="default2"
+                class="TabLinks"
+                onclick="OpenTab(event, 'robloxscripting')"
+            >
+                scripting (roblox/luau)
+            </button>
+            <button class="TabLinks" onclick="OpenTab(event, 'godotscripting')">
+                scripting (godot/gdscript)
+            </button>
+            <button class="TabLinks" onclick="OpenTab(event, 'ui')">ui</button>
+        </div>
+        <hr class="blanklinespace" />
+        <hr />
+        <div id="robloxscripting" class="TabContent2">
+            <h2>roblox stuff</h2>
+            <h4>full games:</h4>
+            <video width="384" height="216" controls>
+                <source src="assets/videos/skedaddle.mp4" type="video/mp4" />
+            </video>
+            <video width="384" height="216" controls>
+                <source
+                    src="assets/videos/snowballshowdown.mp4"
+                    type="video/mp4"
+                />
+            </video>
+            <h4>standalone systems:</h4>
+            <video class="video" width="384" height="216" controls>
+                <source src="assets/videos/autofill.mp4" type="video/mp4" />
+            </video>
+            <video class="video" width="384" height="216" controls>
+                <source src="assets/videos/dialogue.mp4" type="video/mp4" />
+            </video>
+            <video class="video" width="384" height="216" controls>
+                <source src="assets/videos/hitbox.mp4" type="video/mp4" />
+            </video>
+        </div>
+        <div id="godotscripting" class="TabContent2">
+            godot stuff<br />
+            <iframe
+                width="552"
+                frameborder="0"
+                height="167"
+                src="https://itch.io/embed/5183336"
+                ><a
+                    href="https://ruzet.itch.io/smash-ultimate-movement-recreation"
+                    >Smash Ultimate Movement Recreation by Ruzet</a
+                ></iframe
+            >
+            <br />
+            <iframe
+                width="552"
+                height="167"
+                frameborder="0"
+                src="https://itch.io/embed/5139953"
+                ><a href="https://ruzet.itch.io/karate-man-browser"
+                    >Karate Man Browser by Ruzet</a
+                ></iframe
+            >
+        </div>
+        <div id="ui" class="TabContent2">
+            ui stuff
+            <img class="image" src="assets/images/skedaddle.png" />
+            <img class="image" src="assets/images/otherui.png" />
+        </div>
+    </div>
+
+    <div id="contacts" class="TabContent1">
+        <h3>contacts</h3>
+        <p>heres some links you can use to see stuff and what not</p>
+        <h4>
+            - <a href="https://youtube.com/@ruzetroblox"> youtube </a> <br />
+            - <a href="https://github.com/ruzet"> github </a> <br />
+            - <a href="http://ruzet.itch.io/"> itch io </a> <br />
+        </h4>
+    </div>
+
+    <div class="bottombar">
+        <p id="time" , class="time">00:00:00</p>
+        <script>
+            var Weekdays = Array(7);
+            Weekdays[0] = "Sunday";
+            Weekdays[1] = "Monday";
+            Weekdays[2] = "Tuesday";
+            Weekdays[3] = "Wednesday";
+            Weekdays[4] = "Thursday";
+            Weekdays[5] = "Friday";
+            Weekdays[6] = "Saturday";
+
+            function Update() {
+                var Text = document.getElementById("time");
+                var NewDate = new Date();
+                var MonthName = NewDate.toLocaleString("default", {
+                    month: "long",
+                });
+                Text.textContent =
+                    Weekdays[NewDate.getDay()] +
+                    ", " +
+                    MonthName +
+                    " " +
+                    NewDate.getDate() +
+                    ", " +
+                    NewDate.toLocaleTimeString();
+                requestAnimationFrame(Update);
+            }
+
+            requestAnimationFrame(Update);
+        </script>
+    </div>
+
+    <script defer>
+        document.getElementById("default1").click();
+        document.getElementById("default2").click();
     </script>
-</div>
-
-<script defer>
-    document.getElementById("default1").click();
-    document.getElementById("default2").click();
-</script>
-
 </html>

@@ -30,9 +30,9 @@
     position: fixed;
     align-items: center;
     display: flex;
-    background-color: rgb(56, 139, 255);
-    border-width: 3px;
-    border-color: white;
+    background-image: linear-gradient(to right, rgb(56, 139, 255), rgb(23, 89, 182));
+    border-width: 5px;
+    border-color: black;
     border-style: solid;
     paint-order: stroke fill;
     color: white;
@@ -46,6 +46,7 @@
 .time {
     margin-left: 15px;
     font-size: 20px;
+    -webkit-text-stroke: 3.5px black;
 }
 
 .image {
@@ -53,15 +54,15 @@
     border-color: rgb(223, 240, 255);
     border-width: 3px;
     border-style: solid;
-    box-shadow: 0 0 5px 5px rgb(0, 96, 180);
+    box-shadow: 0 0 10px 10px rgb(0, 96, 180);
 }
 
 hr {
-    border-color: rgb(223, 240, 255);
+    border-color: black;
     border-radius: 50px;
     height: 15px;
     background-color: rgb(0, 153, 255);
-    box-shadow: 0 0 5px 5px rgb(0, 96, 180);
+    box-shadow: 0 0 5px 5px rgb(118, 191, 255);
     border-width: 3px;
     border-style: solid;
 }
@@ -71,7 +72,7 @@ body {
     background-repeat: no-repeat;
     min-height: 100vh;
     color: white;
-    -webkit-text-stroke: 3.5px black;
+    -webkit-text-stroke: 5px black;
     paint-order: stroke fill;
     font-size: 40px;
     font-family: sans-serif;
