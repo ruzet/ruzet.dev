@@ -30,12 +30,17 @@
     position: fixed;
     align-items: center;
     display: flex;
-    background-image: linear-gradient(to right, rgb(56, 139, 255), rgb(23, 89, 182));
+    background-image: linear-gradient(
+        to right,
+        rgb(56, 139, 255),
+        rgb(23, 89, 182)
+    );
     border-width: 5px;
-    border-color: black;
+    border-color: rgb(212, 231, 255);
     border-style: solid;
     paint-order: stroke fill;
     color: white;
+    box-shadow: 0 0 10px 5px rgb(0, 38, 151);
     z-index: 1000;
 }
 
@@ -77,5 +82,5 @@ body {
     font-size: 40px;
     font-family: sans-serif;
     font-weight: 600;
-    margin-bottom: 30px
+    margin-bottom: 30px;
 }
