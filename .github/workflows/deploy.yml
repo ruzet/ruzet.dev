@@ -1,0 +1,33 @@
+name: Deploy to Hack Club Nest
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Nest
+        env:
+          NEST_HOST: ${{ secrets.NEST_HOST }}
+          NEST_USER: ${{ secrets.NEST_USER }}
+          NEST_SSH_KEY: ${{ secrets.NEST_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$NEST_SSH_KEY" > ~/.ssh/nest_key
+          chmod 600 ~/.ssh/nest_key
+
+          ssh-keyscan -H "$NEST_HOST" >> ~/.ssh/known_hosts
+
+          ssh -i ~/.ssh/nest_key \
+            "$NEST_USER@$NEST_HOST" \
+            'cd /root/ruzet.dev && git pull --ff-only'
+
+          rm -f ~/.ssh/nest_key
